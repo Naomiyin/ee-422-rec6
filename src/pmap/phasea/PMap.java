@@ -1,10 +1,10 @@
 /*
- * Phase A <studentA EID><studentB EID>
- * Phase B <studentB EID><studentA EID>
+ * Phase A <Yue Cheng YC26939><Meini Yin my7343>
+
  */
 
 package pmap.phasea;
-
+import java.util.*;
 /**
  * PMap stands for Paired Map. A map is a collection of key-value
  * pairs, e.g., (1, 2) (2, 3) (3, 4) are all pairs with an integer key
@@ -20,9 +20,11 @@ public class PMap {
      *
      * @return the number of key-value mappings in this map
      */
+	
+	private List<PEntry> list = new ArrayList<>() ;
     public Integer size() {
-        // TODO
-        return 0;
+       
+        return list.size();
     }
 
     /**
@@ -33,8 +35,8 @@ public class PMap {
      *         mappings
      */
     public boolean isEmpty() {
-        // TODO
-        return false;
+        
+        return list.isEmpty();
     }
 
     /**
@@ -46,7 +48,11 @@ public class PMap {
      *         specified key
      */
     public boolean containsKey(Integer key) {
-        // TODO
+        for(PEntry each : list) {
+        	if(each.getKey().equals(key)) {
+        		return true;
+        	}
+        }
         return false;
     }
 
@@ -59,7 +65,11 @@ public class PMap {
      *         specified value
      */
     public boolean containsValue(Integer value) {
-        // TODO
+        for(PEntry each : list) {
+        	if(each.getValue().equals(value)) {
+        		return true;
+        	}
+        }
         return false;
     }
 
@@ -73,8 +83,13 @@ public class PMap {
      *         key
      */
     public Integer get(Integer key) {
-        // TODO
-        return 0;
+        for(PEntry each : list) {
+        	if(each.getKey().equals(key)) {
+        		return each.getValue();
+        	}
+        }
+        return null;
+
     }
 
     /**
@@ -90,8 +105,15 @@ public class PMap {
      *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
      */
     public Integer put(Integer key, Integer value) {
-        // TODO
-        return 0;
+        for(PEntry each : list) {
+        	if(each.getKey().equals(key)) {
+        		Integer old = each.getValue();
+        		each.setValue(value);
+        		return old;
+        	}
+        }
+        list.add(new PEntry(key, value));
+       return null;
     }
 
     /**
@@ -110,8 +132,16 @@ public class PMap {
      *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
      */
     public Integer remove(Integer key) {
-        // TODO
-        return 0;
+        for(PEntry each : list) {
+        	if(each.getKey().equals(key)) {
+ 
+        		list.remove(each);
+
+        		
+        		return each.getValue();
+        	}
+        }
+        return null;
     }
 
     /**
@@ -123,7 +153,12 @@ public class PMap {
      * @param values the array of values to be stored in this map
      */
     public void putAll(Integer[] keys, Integer[] values) {
-        // TODO
+    	
+        for(int i=0; i< keys.length; i++){
+        	PEntry each = new PEntry(keys[i], values[i]);
+        	this.list.add(each);
+        }
+        
     }
 
     /**
@@ -131,7 +166,7 @@ public class PMap {
      * empty after this call returns.
      */
     public void clear() {
-        // TODO
+        list.clear();
     }
 
     /**
@@ -140,9 +175,14 @@ public class PMap {
      * @return an array of the keys contained in this map
      */
     public Integer[] keySet() {
-        // TODO
-        return null;
-    }
+        Integer[] ans = new Integer[list.size()];
+        for(int i=0; i<list.size(); i++){
+        	PEntry each = list.get(i);
+        	ans[i] = each.getKey();
+        }
+        
+        return ans;
+}
 
     /**
      * Returns an array of the values contained in this map.
@@ -150,8 +190,13 @@ public class PMap {
      * @return an array of the values contained in this map
      */
     public Integer[] values() {
-        // TODO
-        return null;
+        Integer[] ans = new Integer[list.size()];
+        for(int i=0; i<list.size(); i++) {
+        	PEntry each = list.get(i);
+        	ans[i] = each.getValue();
+        }
+        
+        return ans;
     }
 
     /**
@@ -160,7 +205,13 @@ public class PMap {
      * @return an array of the mappings contained in this map
      */
     public PEntry[] entrySet() {
-        // TODO
-        return null;
+    	PEntry[] ans = new PEntry[list.size()];
+        for(int i=0; i<list.size(); i++) {
+        	PEntry each = list.get(i);
+        	ans[i] = each;
+        }
+        
+        return ans;
+    
     }
 }
